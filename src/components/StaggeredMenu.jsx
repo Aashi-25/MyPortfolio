@@ -450,9 +450,19 @@ export const StaggeredMenu = ({
                         {/* Hover strip */}
                         <div className="sm-hover-strip">
                           <div className="sm-marquee">
-                            <span>View Project →</span>
-                            <span>View Project →</span>
-                            <span>View Project →</span>
+                            {[1, 2, 3].map(i => (
+                              <React.Fragment key={i}>
+                                <span>View Project →</span>
+                                <img
+                                  src={item.image}
+                                  alt={item.label}
+                                  className="sm-marquee-img"
+                                  onMouseEnter={handleImageEnter}
+                                  onMouseMove={handleImageMove}
+                                  onMouseLeave={handleImageLeave}
+                                />
+                              </React.Fragment>
+                            ))}
                           </div>
                         </div>
                       </a>
@@ -606,12 +616,25 @@ export const StaggeredMenu = ({
 /* Marquee */
 .sm-scope .sm-marquee {
   display: flex;
-  gap: 4rem;
+  align-items: center;
+  gap: 3rem;
   white-space: nowrap;
-  animation: sm-marquee 6s linear infinite;
+  animation: sm-marquee 8s linear infinite;
   font-size: 1.4rem;
   font-weight: 600;
   padding-left: 100vw;
+}
+
+/* Marquee image */
+.sm-scope .sm-marquee-img {
+  height: 160px;
+  width: 280px;
+  object-fit: cover;
+  border-radius: 999px;
+  flex-shrink: 0;
+  will-change: transform;
+  transform-origin: center;
+  pointer-events: auto;
 }
 
 /* Marquee animation */
@@ -628,6 +651,9 @@ export const StaggeredMenu = ({
 @media (max-width: 768px) {
   .sm-scope .sm-hover-strip {
     display: none;
+  }
+  .sm-scope .sm-marquee-img {
+    transform: none !important;
   }
 }
       `}</style>

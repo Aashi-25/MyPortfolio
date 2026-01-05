@@ -7,12 +7,14 @@ const NavBar = () => {
     ...navLinks.map(({ link, name }) => ({
       label: name,
       link: link,
-      ariaLabel: `Navigate to ${name} section`
+      ariaLabel: `Navigate to ${name} section`,
+      image: '/images/project1.jpeg'
     })),
     {
       label: "Contact",
       link: "#contact",
-      ariaLabel: "Navigate to Contact section"
+      ariaLabel: "Navigate to Contact section",
+      image: '/images/project2.jpeg'
     }
   ];
 
