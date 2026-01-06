@@ -343,6 +343,27 @@ export const StaggeredMenu = ({
     };
   }, [closeOnClickAway, open, closeMenu]);
 
+  // Hover handlers for marquee images
+  const handleImageEnter = e => {
+    const img = e.currentTarget;
+    gsap.killTweensOf(img);
+    gsap.to(img, { scale: 1.1, duration: 0.6, ease: 'power3.out' });
+  };
+
+  const handleImageMove = e => {
+    const img = e.currentTarget;
+    const rect = img.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    gsap.to(img, { x: x * 0.08, y: y * 0.08, duration: 0.4, ease: 'power3.out' });
+  };
+
+  const handleImageLeave = e => {
+    const img = e.currentTarget;
+    gsap.killTweensOf(img);
+    gsap.to(img, { scale: 1, x: 0, y: 0, duration: 0.6, ease: 'power3.out' });
+  };
+
   return (
     <div
       className={`sm-scope z-40 ${isFixed ? 'fixed top-0 left-0 w-screen h-screen overflow-hidden' : 'w-full h-full'}`}
