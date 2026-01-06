@@ -1,254 +1,98 @@
-import { useState, useEffect, useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { words } from "../constants";
-import AnimatedCounter from "../components/AnimatedCounter";
-import HeroExperience from "../components/models/hero_models/HeroExperience";
-import Button from "../components/Button";
+import { Link } from "react-router-dom";
+import Video from "./Video";
 
 const Hero = () => {
-  const [currentWordIndex, setCurrentWordIndex] = useState(0);
-  const heroRef = useRef(null);
-  const introRef = useRef(null);
-  const nameRef = useRef(null);
-  const roleRef = useRef(null);
-  const wordSliderRef = useRef(null);
-  const badgeRef = useRef(null);
-  const ctaRef = useRef(null);
-  const descriptionRef = useRef(null);
+  useGSAP(() => {
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-  useEffect(() => {
-    // Use only unique words (first 4)
-    const uniqueWords = words.slice(0, 4);
-    const interval = setInterval(() => {
-      setCurrentWordIndex((prevIndex) => (prevIndex + 1) % uniqueWords.length);
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  useGSAP(
-    () => {
-      // Create a master timeline for hero animations
-      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-
-      // Animate intro text
-      if (introRef.current) {
-        tl.from(introRef.current, {
-          opacity: 0,
-          y: 30,
-          duration: 0.8,
-        });
-      }
-
-      // Animate name
-      if (nameRef.current) {
-        tl.from(
-          nameRef.current,
-          {
-            opacity: 0,
-            y: 40,
-            duration: 0.9,
-          },
-          "-=0.5"
-        );
-      }
-
-      // Animate role
-      if (roleRef.current) {
-        tl.from(
-          roleRef.current,
-          {
-            opacity: 0,
-            y: 30,
-            duration: 0.8,
-          },
-          "-=0.6"
-        );
-      }
-
-      // Animate word slider
-      if (wordSliderRef.current) {
-        tl.from(
-          wordSliderRef.current,
-          {
-            opacity: 0,
-            x: -30,
-            duration: 0.8,
-          },
-          "-=0.5"
-        );
-      }
-
-      // Animate description
-      if (descriptionRef.current) {
-        tl.from(
-          descriptionRef.current,
-          {
-            opacity: 0,
-            y: 20,
-            duration: 0.7,
-          },
-          "-=0.4"
-        );
-      }
-
-      // Animate badge
-      if (badgeRef.current) {
-        tl.from(
-          badgeRef.current,
-          {
-            opacity: 0,
-            scale: 0.8,
-            duration: 0.6,
-          },
-          "-=0.3"
-        );
-
-        // Floating animation for badge
-        gsap.to(badgeRef.current, {
-          y: -10,
-          duration: 2,
-          repeat: -1,
-          yoyo: true,
-          ease: "power1.inOut",
-        });
-      }
-
-      // Animate CTA buttons
-      if (ctaRef.current && ctaRef.current.children.length > 0) {
-        tl.from(
-          ctaRef.current.children,
-          {
-            opacity: 0,
-            y: 20,
-            duration: 0.6,
-            stagger: 0.1,
-          },
-          "-=0.3"
-        );
-      }
-    },
-    { scope: heroRef }
-  );
+    tl.from(".hero-line-1", { opacity: 0, y: 80, duration: 1.4 })
+      .from(".hero-line-2", { opacity: 0, y: 80, duration: 1.4 }, "-=1")
+      .from(".hero-line-3", { opacity: 0, y: 80, duration: 1.4 }, "-=1")
+      .from(".video-pill", { scale: 0.85, opacity: 0, duration: 1 }, "-=1")
+      .from(".description-text", { opacity: 0, y: 40, duration: 1.2 }, "-=0.6")
+      .from(".cta-button", { opacity: 0, y: 30, duration: 1 }, "-=0.8");
+  });
 
   return (
-    <section
-      id="hero"
-      ref={heroRef}
-      className="relative overflow-hidden min-h-screen flex flex-col"
-    >
-      {/* Animated background gradient */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
-        <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-pink-500/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "2s" }} />
+    <section className="relative h-screen overflow-hidden bg-black text-white">
+
+      {/* Background Video */}
+      <div className="absolute inset-0 -z-30">
+        <Video />
       </div>
 
-      <div className="hero-layout relative z-10">
-        {/* Left Content */}
-        <div className="flex flex-col justify-center xl:items-start items-center text-center xl:text-left px-5 md:px-10 xl:px-20 max-w-4xl">
-          {/* Introduction */}
-          <div
-            ref={introRef}
-            className="text-white-50 text-lg md:text-xl mb-4 font-light tracking-wide"
-          >
-            Hi, I'm
+      {/* Dark overlay for readability */}
+      <div className="absolute inset-0 -z-20 bg-black/50" />
+
+      {/* Subtle vignette */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/60 via-transparent to-black/80" />
+
+      {/* HERO CONTENT */}
+      <div className="relative z-10 h-screen flex flex-col justify-between items-center text-center px-8 py-20 font-[font1] uppercase">
+
+        {/* Headline */}
+        <div>
+          <div className="hero-line-1 text-[10vw] lg:text-[7.5vw] leading-[9vw] lg:leading-[6.5vw] drop-shadow-[0_8px_24px_rgba(0,0,0,0.7)]">
+            The idea
           </div>
 
-          {/* Name */}
-          <h1
-            ref={nameRef}
-            className="text-5xl md:text-7xl xl:text-8xl font-bold mb-4 bg-gradient-to-r from-white via-white-50 to-white bg-clip-text text-transparent"
-          >
-            Adrian JSM
-          </h1>
-
-          {/* Role with animated word slider */}
-          <div
-            ref={roleRef}
-            className="flex items-center gap-3 md:gap-4 mb-6 text-3xl md:text-5xl xl:text-6xl font-semibold"
-          >
-            <span>I turn</span>
-            <div
-              ref={wordSliderRef}
-              className="slide-container relative h-[48px] md:h-[78px] overflow-hidden"
-            >
-              <div
-                className="slide-wrapper flex flex-col transition-transform duration-500 ease-in-out"
-                style={{
-                  transform: `translateY(-${currentWordIndex * 100}%)`,
-                }}
-              >
-                {words.slice(0, 4).map((word, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center gap-2 md:gap-4 min-h-[48px] md:min-h-[78px]"
-                  >
-                    <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-                      {word.text}
-                    </span>
-                    <img
-                      src={word.imgPath}
-                      alt={word.text}
-                      className="size-8 md:size-10 object-contain"
-                    />
-                  </div>
-                ))}
-              </div>
+          <div className="hero-line-2 flex items-center gap-4 lg:gap-6 text-[10vw] lg:text-[7.5vw] leading-[9vw] lg:leading-[6.5vw] drop-shadow-[0_8px_24px_rgba(0,0,0,0.7)]">
+            that
+            <div className="video-pill h-[7vw] w-[16vw] lg:h-[5.5vw] lg:w-[12vw] rounded-full overflow-hidden border-4 border-white/30 shadow-2xl">
+              <Video />
             </div>
+            becomes
           </div>
 
-          {/* Description */}
-          <p
-            ref={descriptionRef}
-            className="text-white-50 text-base md:text-lg xl:text-xl mb-8 max-w-2xl leading-relaxed"
-          >
-            A passionate developer crafting exceptional digital experiences
-            through innovative design and cutting-edge technology.
+          <div className="hero-line-3 text-[10vw] lg:text-[7.5vw] leading-[9vw] lg:leading-[6.5vw] drop-shadow-[0_8px_24px_rgba(0,0,0,0.7)]">
+            reality
+          </div>
+
+          <p className="hidden lg:block mt-4 text-xs tracking-widest opacity-70">
+            Developer • Product Builder • Problem Solver
+          </p>
+        </div>
+
+        {/* Bottom section */}
+        <div className="flex flex-col items-center gap-6 mb-6">
+
+          <p className="description-text max-w-3xl text-xs lg:text-base leading-tight lg:leading-relaxed text-center opacity-90">
+            I design and build digital products that solve real problems. From ideas to
+            production-ready experiences, I focus on clean code, thoughtful design, and
+            meaningful impact.
           </p>
 
-          {/* Badge */}
-          <div
-            ref={badgeRef}
-            className="hero-badge mb-8 inline-block"
+          {/* EXPLORE BUTTON — FIXED */}
+          <Link
+            to="/projects"
+            className="
+              cta-button
+              relative z-20
+              px-12 py-5
+              rounded-full
+              border-2 border-white
+              bg-black/40
+              backdrop-blur-md
+              uppercase
+              text-lg lg:text-2xl
+              font-bold
+              transition-all duration-500
+              hover:border-[#D3FD50]
+              hover:text-[#D3FD50]
+              hover:bg-black/60
+              hover:scale-105
+            "
           >
-            Portfolio 2025
-          </div>
+            Explore
+          </Link>
 
-          {/* CTA Buttons */}
-          <div
-            ref={ctaRef}
-            className="flex flex-col sm:flex-row gap-4 mb-10"
-          >
-            <Button
-              text="View My Work"
-              id="work"
-              className="w-full sm:w-auto"
-            />
-            <a
-              href="#contact"
-              className="cta-wrapper w-full sm:w-auto"
-            >
-              <div className="cta-button group border border-white-50/20 hover:border-white-50/40 bg-transparent">
-                <div className="bg-circle" />
-                <p className="text text-white-50">Get In Touch</p>
-                <div className="arrow-wrapper">
-                  <img src="/images/arrow-right.svg" alt="arrow" />
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        {/* Right 3D Element */}
-        <div className="hero-3d-layout">
-          <HeroExperience />
+          <p className="text-xs uppercase tracking-widest opacity-50">
+            Selected work & experiments
+          </p>
         </div>
       </div>
-
-      {/* Animated Counter */}
-      <AnimatedCounter />
     </section>
   );
 };

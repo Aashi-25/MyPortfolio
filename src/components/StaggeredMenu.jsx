@@ -404,7 +404,7 @@ export const StaggeredMenu = ({
         >
           <div className="sm-logo flex items-center select-none pointer-events-auto" aria-label="Logo">
             <a href="#hero" className="text-white text-xl md:text-2xl font-bold no-underline">
-              Adrian JSM
+              Aashi Goel
             </a>
           </div>
 
