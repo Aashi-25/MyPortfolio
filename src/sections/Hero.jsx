@@ -11,7 +11,6 @@ const Hero = () => {
       .from(".hero-line-2", { opacity: 0, y: 80, duration: 1.4 }, "-=1")
       .from(".hero-line-3", { opacity: 0, y: 80, duration: 1.4 }, "-=1")
       .from(".video-pill", { scale: 0.85, opacity: 0, duration: 1 }, "-=1")
-      .from(".description-text", { opacity: 0, y: 40, duration: 1.2 }, "-=0.6")
       .from(".cta-button", { opacity: 0, y: 30, duration: 1 }, "-=0.8");
   });
 
@@ -23,14 +22,12 @@ const Hero = () => {
         <Video />
       </div>
 
-      {/* Dark overlay for readability */}
+      {/* Overlay */}
       <div className="absolute inset-0 -z-20 bg-black/50" />
-
-      {/* Subtle vignette */}
       <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/60 via-transparent to-black/80" />
 
       {/* HERO CONTENT */}
-      <div className="relative z-10 h-screen flex flex-col justify-between items-center text-center px-8 py-20 font-[font1] uppercase">
+      <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-8 font-[font1] uppercase">
 
         {/* Headline */}
         <div>
@@ -54,44 +51,35 @@ const Hero = () => {
             Developer • Product Builder • Problem Solver
           </p>
         </div>
+      </div>
 
-        {/* Bottom section */}
-        <div className="flex flex-col items-center gap-6 mb-6">
+      {/* 🔥 FIXED CTA — ABSOLUTE, ALWAYS VISIBLE */}
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center">
+        <Link
+          to="/projects"
+          className="
+            cta-button
+            px-12 py-5
+            rounded-full
+            border-2 border-white
+            bg-black/40
+            backdrop-blur-md
+            uppercase
+            text-lg lg:text-2xl
+            font-bold
+            transition-all duration-500
+            hover:border-[#D3FD50]
+            hover:text-[#D3FD50]
+            hover:bg-black/60
+            hover:scale-105
+          "
+        >
+          Explore
+        </Link>
 
-          <p className="description-text max-w-3xl text-xs lg:text-base leading-tight lg:leading-relaxed text-center opacity-90">
-            I design and build digital products that solve real problems. From ideas to
-            production-ready experiences, I focus on clean code, thoughtful design, and
-            meaningful impact.
-          </p>
-
-          {/* EXPLORE BUTTON — FIXED */}
-          <Link
-            to="/projects"
-            className="
-              cta-button
-              relative z-20
-              px-12 py-5
-              rounded-full
-              border-2 border-white
-              bg-black/40
-              backdrop-blur-md
-              uppercase
-              text-lg lg:text-2xl
-              font-bold
-              transition-all duration-500
-              hover:border-[#D3FD50]
-              hover:text-[#D3FD50]
-              hover:bg-black/60
-              hover:scale-105
-            "
-          >
-            Explore
-          </Link>
-
-          <p className="text-xs uppercase tracking-widest opacity-50">
-            Selected work & experiments
-          </p>
-        </div>
+        <p className="mt-3 text-xs uppercase tracking-widest opacity-50">
+          Selected work & experiments
+        </p>
       </div>
     </section>
   );

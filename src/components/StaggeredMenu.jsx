@@ -6,7 +6,7 @@ export const StaggeredMenu = ({
   colors = ['#B19EEF', '#5227FF'],
   items = [],
   socialItems = [],
-  displaySocials = true,
+  displaySocials = false,
   displayItemNumbering = true,
   className,
   logoUrl = '/src/assets/logos/reactbits-gh-white.svg',
@@ -185,31 +185,39 @@ export const StaggeredMenu = ({
     const layers = preLayerElsRef.current;
     if (!panel) return;
 
-    const all = [...layers, panel];
     closeTweenRef.current?.kill();
-
     const offscreen = position === 'left' ? -100 : 100;
 
-    closeTweenRef.current = gsap.to(all, {
-      xPercent: offscreen,
-      duration: 0.32,
-      ease: 'power3.in',
-      overwrite: 'auto',
-      onComplete: () => {
-        const itemEls = Array.from(panel.querySelectorAll('.sm-panel-itemLabel'));
-        if (itemEls.length) gsap.set(itemEls, { yPercent: 140, rotate: 10 });
+    // Build a close timeline that mirrors the colored wipe on open
+    const tl = gsap.timeline({ defaults: { ease: 'power4.in' } });
 
-        const numberEls = Array.from(panel.querySelectorAll('.sm-panel-list[data-numbering] .sm-panel-item'));
-        if (numberEls.length) gsap.set(numberEls, { ['--sm-num-opacity']: 0 });
+    // Slide panel away first
+    // Make the close a touch slower for a smoother feel
+    tl.to(panel, { xPercent: offscreen, duration: 0.6 }, 0);
 
-        const socialTitle = panel.querySelector('.sm-socials-title');
-        const socialLinks = Array.from(panel.querySelectorAll('.sm-socials-link'));
-        if (socialTitle) gsap.set(socialTitle, { opacity: 0 });
-        if (socialLinks.length) gsap.set(socialLinks, { y: 25, opacity: 0 });
-
-        busyRef.current = false;
-      }
+    // Then sweep the color layers out with a stagger (reverse order)
+    const layersOut = [...layers].reverse();
+    layersOut.forEach((el, i) => {
+      tl.to(el, { xPercent: offscreen, duration: 0.5 }, 0.08 * i + 0.1);
     });
+
+    tl.eventCallback('onComplete', () => {
+      const itemEls = Array.from(panel.querySelectorAll('.sm-panel-itemLabel'));
+      if (itemEls.length) gsap.set(itemEls, { yPercent: 140, rotate: 10 });
+
+      const numberEls = Array.from(panel.querySelectorAll('.sm-panel-list[data-numbering] .sm-panel-item'));
+      if (numberEls.length) gsap.set(numberEls, { ['--sm-num-opacity']: 0 });
+
+      const socialTitle = panel.querySelector('.sm-socials-title');
+      const socialLinks = Array.from(panel.querySelectorAll('.sm-socials-link'));
+      if (socialTitle) gsap.set(socialTitle, { opacity: 0 });
+      if (socialLinks.length) gsap.set(socialLinks, { y: 25, opacity: 0 });
+
+      busyRef.current = false;
+    });
+
+    closeTweenRef.current = tl;
+    tl.play(0);
   }, [position]);
 
   const animateIcon = useCallback(opening => {
@@ -501,28 +509,7 @@ export const StaggeredMenu = ({
               )}
             </ul>
 
-            {displaySocials && socialItems && socialItems.length > 0 && (
-              <div className="sm-socials mt-auto pt-8 flex flex-col gap-3" aria-label="Social links">
-                <h3 className="sm-socials-title m-0 text-base font-medium [color:var(--sm-accent,#ff0000)]">Socials</h3>
-                <ul
-                  className="sm-socials-list list-none m-0 p-0 flex flex-row items-center gap-4 flex-wrap"
-                  role="list"
-                >
-                  {socialItems.map((s, i) => (
-                    <li key={s.label + i} className="sm-socials-item">
-                      <a
-                        href={s.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="sm-socials-link text-[1.2rem] font-medium text-[#111] no-underline relative inline-block py-[2px] transition-[color,opacity] duration-300 ease-linear"
-                      >
-                        {s.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+            {/* Social links removed as requested */}
           </div>
         </aside>
       </div>
