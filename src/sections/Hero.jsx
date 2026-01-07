@@ -35,8 +35,8 @@ const Hero = ({ onExplore }) => {
       </div>
 
       {/* OVERLAYS */}
-      <div className="absolute inset-0 -z-20 bg-black/50" />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/60 via-transparent to-black/80" />
+      <div className="absolute inset-0 -z-20 bg-black/50 pointer-events-none" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/60 via-transparent to-black/80 pointer-events-none" />
 
       {/* HERO CONTENT */}
       <div className="relative z-20 h-full flex flex-col items-center justify-center text-center px-8 font-[font1] uppercase">
