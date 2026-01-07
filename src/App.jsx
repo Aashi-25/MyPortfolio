@@ -11,13 +11,14 @@ import Navbar from "./components/NavBar";
 import { useEffect, useState } from "react";
 import { initSmoothScrolling } from "./utils/smoothScroll";
 import Loader from "./components/Loader";
+import Stairs from "./components/Stairs";
 
 const App = () => {
   const [showLoader, setShowLoader] = useState(true);
   const [slideUp, setSlideUp] = useState(false);
+  const [hasExplored, setHasExplored] = useState(false);
 
   useEffect(() => {
-    // Initialize enhanced smooth scrolling
     const cleanup = initSmoothScrolling();
     return cleanup;
   }, []);
@@ -28,22 +29,30 @@ const App = () => {
         <Loader
           onFinish={() => {
             setSlideUp(true);
-            setTimeout(() => setShowLoader(false), 800); // match Loader's transition
+            setTimeout(() => setShowLoader(false), 800);
           }}
           slideUp={slideUp}
         />
       )}
-      {/* Main portfolio is always rendered */}
+
       <Navbar />
-      <Hero />
-      <ShowcaseSection />
-      <LogoShowcase />
-      <FeatureCards />
-      <Experience />
-      <TechStack />
-      <Testimonials />
-      <Contact />
-      <Footer />
+
+      {/* HERO ALWAYS VISIBLE */}
+      <Hero onExplore={() => setHasExplored(true)} />
+
+      {/* REST OF PAGE — REVEALED VIA STAIRS */}
+      {hasExplored && (
+        <Stairs>
+          <ShowcaseSection />
+          <LogoShowcase />
+          <FeatureCards />
+          <Experience />
+          <TechStack />
+          <Testimonials />
+          <Contact />
+          <Footer />
+        </Stairs>
+      )}
     </>
   );
 };
