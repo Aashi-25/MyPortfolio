@@ -3,7 +3,7 @@ import gsap from "gsap";
 import Video from "./Video";
 import { useRef } from "react";
 
-const Hero = ({ onExplore }) => {
+const Hero = () => {
   const heroRef = useRef(null);
 
   useGSAP(
@@ -13,13 +13,7 @@ const Hero = ({ onExplore }) => {
       tl.from(".hero-line-1", { opacity: 0, y: 80, duration: 1.4 })
         .from(".hero-line-2", { opacity: 0, y: 80, duration: 1.4 }, "-=1")
         .from(".hero-line-3", { opacity: 0, y: 80, duration: 1.4 }, "-=1")
-        .from(".video-pill", { scale: 0.85, opacity: 0, duration: 1 }, "-=1")
-        .fromTo(
-          ".explore-btn",
-          { opacity: 0, y: 40 },
-          { opacity: 1, y: 0, duration: 1 },
-          "-=0.6"
-        );
+        .from(".video-pill", { scale: 0.85, opacity: 0, duration: 1 }, "-=1");
     },
     { scope: heroRef }
   );
@@ -60,37 +54,6 @@ const Hero = ({ onExplore }) => {
           <p className="hidden lg:block mt-4 text-xs tracking-widest opacity-70">
             Developer • Product Builder • Problem Solver
           </p>
-
-          {/* EXPLORE BUTTON */}
-          <div className="mt-12 flex justify-center">
-            <button
-              onClick={onExplore}
-              className="
-                explore-btn
-                relative z-30
-                opacity-100
-                inline-flex items-center gap-3
-                px-12 py-5
-                rounded-full
-                border border-white/40
-                bg-white/5
-                backdrop-blur-md
-                uppercase
-                tracking-widest
-                text-sm lg:text-base
-                font-semibold
-                transition-all duration-500
-                hover:border-[#D3FD50]
-                hover:text-[#D3FD50]
-                hover:bg-white/10
-                hover:scale-105
-                shadow-[0_0_40px_rgba(211,253,80,0.18)]
-              "
-            >
-              Explore Work
-              <span className="animate-bounce">↓</span>
-            </button>
-          </div>
         </div>
       </div>
     </section>

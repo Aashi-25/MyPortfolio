@@ -8,6 +8,7 @@ import ShowcaseSection from "./sections/ShowcaseSection";
 import LogoShowcase from "./sections/LogoShowcase";
 import FeatureCards from "./sections/FeatureCards";
 import Navbar from "./components/NavBar";
+import ExploreCTA from "./components/ExploreCTA";
 import { useEffect, useState } from "react";
 import { initSmoothScrolling } from "./utils/smoothScroll";
 import Loader from "./components/Loader";
@@ -38,7 +39,10 @@ const App = () => {
       <Navbar />
 
       {/* HERO ALWAYS VISIBLE */}
-      <Hero onExplore={() => setHasExplored(true)} />
+      <Hero />
+
+      {/* EXPLORE CTA BUTTON */}
+      <ExploreCTA onExplore={() => setHasExplored(true)} />
 
       {/* REST OF PAGE — REVEALED VIA STAIRS */}
       {hasExplored && (
