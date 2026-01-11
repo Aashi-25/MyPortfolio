@@ -16,16 +16,22 @@ const Stairs = forwardRef(({ children }, ref) => {
 
     tl.from('.stair', {
       height: 0,
-      stagger: -0.2,
       duration: 0.4,
-      ease: 'power4.out'
+      ease: 'power4.out',
+      stagger: {
+        amount: 0.25,
+        from: 'end'
+      }
     })
 
     tl.to('.stair', {
       y: '100%',
-      stagger: -0.25,
       duration: 0.5,
-      ease: 'power4.inOut'
+      ease: 'power4.inOut',
+      stagger: {
+        amount: 0.3,
+        from: 'start'
+      }
     })
 
     tl.set(stairParentRef.current, {
