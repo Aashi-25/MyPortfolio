@@ -2,75 +2,66 @@ import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { useRef, forwardRef, useImperativeHandle } from 'react'
 
-const Stairs = forwardRef((props, ref) => {
-
+const Stairs = forwardRef(({ children }, ref) => {
   const stairParentRef = useRef(null)
-  const pageRef = useRef(null)
+  const tlRef = useRef(null)
 
-  useImperativeHandle(ref, () => ({
-    play,
-  }))
+  useGSAP(() => {
+    const tl = gsap.timeline({ paused: true })
 
-  const play = () => {
-    const tl = gsap.timeline()
-
-    tl.to(stairParentRef.current, {
+    tl.set(stairParentRef.current, {
       display: 'block',
       pointerEvents: 'auto'
     })
 
     tl.from('.stair', {
       height: 0,
-      stagger: {
-        amount: -0.2,
-      },
+      stagger: -0.2,
+      duration: 0.4,
+      ease: 'power4.out'
     })
 
     tl.to('.stair', {
       y: '100%',
-      stagger: {
-        amount: -0.25,
-      },
+      stagger: -0.25,
+      duration: 0.5,
+      ease: 'power4.inOut'
     })
 
-    tl.to(stairParentRef.current, {
+    tl.set(stairParentRef.current, {
       display: 'none',
       pointerEvents: 'none'
     })
 
-    tl.to('.stair', {
-      y: '0%',
-    })
+    tl.set('.stair', { y: '0%' })
 
-    gsap.from(pageRef.current, {
-      opacity: 0,
-      delay: 1.3,
-      scale: 1.2,
-    })
-  }
+    tlRef.current = tl
+  })
+
+  // ✅ IMPERATIVE HANDLE - ONLY WAY TO CONTROL ANIMATION
+  useImperativeHandle(ref, () => ({
+    play: () => {
+      tlRef.current?.restart()
+    }
+  }))
 
   return (
-    <div>
-      {/* STAIRS OVERLAY */}
+    <>
       <div
         ref={stairParentRef}
-        className="h-screen w-full fixed z-20 top-0 hidden pointer-events-none"
+        className="fixed inset-0 z-50 pointer-events-none hidden"
       >
-        <div className="h-full w-full flex">
-          <div className="stair h-full w-1/5 bg-gray-600"></div>
-          <div className="stair h-full w-1/5 bg-gray-600"></div>
-          <div className="stair h-full w-1/5 bg-gray-600"></div>
-          <div className="stair h-full w-1/5 bg-gray-600"></div>
-          <div className="stair h-full w-1/5 bg-gray-600"></div>
+        <div className="flex h-full w-full">
+          {[...Array(5)].map((_, i) => (
+            <div key={i} className="stair h-full w-1/5 bg-neutral-800" />
+          ))}
         </div>
       </div>
 
-      {/* PAGE CONTENT */}
-      <div ref={pageRef}>
-        {props.children}
-      </div>
-    </div>
+      {children}
+    </>
   )
 })
 
+Stairs.displayName = 'Stairs'
 export default Stairs
