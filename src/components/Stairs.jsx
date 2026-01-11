@@ -16,6 +16,7 @@ const Stairs = forwardRef((props, ref) => {
 
     tl.to(stairParentRef.current, {
       display: 'block',
+      pointerEvents: 'auto'
     })
 
     tl.from('.stair', {
@@ -34,6 +35,7 @@ const Stairs = forwardRef((props, ref) => {
 
     tl.to(stairParentRef.current, {
       display: 'none',
+      pointerEvents: 'none'
     })
 
     tl.to('.stair', {
@@ -52,7 +54,7 @@ const Stairs = forwardRef((props, ref) => {
       {/* STAIRS OVERLAY */}
       <div
         ref={stairParentRef}
-        className="h-screen w-full fixed z-20 top-0 hidden"
+        className="h-screen w-full fixed z-20 top-0 hidden pointer-events-none"
       >
         <div className="h-full w-full flex">
           <div className="stair h-full w-1/5 bg-gray-600"></div>

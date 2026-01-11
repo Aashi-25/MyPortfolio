@@ -6,6 +6,11 @@ const ExploreCTA = ({ onExplore }) => {
   const ref = useRef(null);
 
   useGSAP(() => {
+    if (!ref.current) return;
+    
+    // Reset initial state
+    gsap.set(ref.current, { opacity: 0, y: 40 });
+    
     // Fade in once
     gsap.to(ref.current, { 
       opacity: 1, 
@@ -14,13 +19,13 @@ const ExploreCTA = ({ onExplore }) => {
       ease: "power3.out", 
       delay: 0.5 
     });
-  });
+  }, []);
 
   return (
-    <div className="fixed bottom-24 left-1/2 -translate-x-1/2 z-[9999]">
+    <div className="fixed bottom-24 left-1/2 -translate-x-1/2 z-[9999] pointer-events-auto">
       <button
         ref={ref}
-        onClick={onExplore}
+        onClick={() => onExplore && onExplore()}
         style={{ opacity: 0, transform: 'translateY(40px)' }}
         className="
           cursor-pointer

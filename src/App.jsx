@@ -20,11 +20,27 @@ const App = () => {
   const [view, setView] = useState('hero')
 
   const handleExplore = () => {
+    if (!stairsRef.current) return
     stairsRef.current.play()
 
     // Switch content DURING black screen
     setTimeout(() => {
       setView('content')
+      window.scrollTo(0, 0)
+    }, 700)
+  }
+
+  const handleLogoClick = (e) => {
+    e.preventDefault()
+    
+    if (view === 'hero') return // Already on hero
+    
+    if (!stairsRef.current) return
+    stairsRef.current.play()
+
+    // Switch back to hero DURING black screen
+    setTimeout(() => {
+      setView('hero')
       window.scrollTo(0, 0)
     }, 700)
   }
@@ -44,13 +60,13 @@ const App = () => {
 
       {!showLoader && (
         <>
-          <Navbar />
+          <Navbar onLogoClick={handleLogoClick} />
 
           <Stairs ref={stairsRef}>
             {view === 'hero' && (
               <>
                 <Hero />
-                <ExploreCTA onExplore={handleExplore} />
+                <ExploreCTA key="hero-cta" onExplore={handleExplore} />
               </>
             )}
 

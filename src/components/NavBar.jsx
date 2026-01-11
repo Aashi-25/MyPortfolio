@@ -1,7 +1,7 @@
 import StaggeredMenu from "./StaggeredMenu";
 import { navLinks } from "../constants";
 
-const NavBar = () => {
+const NavBar = ({ onLogoClick }) => {
   // Map navLinks to StaggeredMenu items format
   const menuItems = [
     ...navLinks.map(({ link, name }) => ({
@@ -40,6 +40,7 @@ const NavBar = () => {
       openMenuButtonColor="#5227FF"
       changeMenuColorOnOpen={true}
       closeOnClickAway={true}
+      onLogoClick={onLogoClick}
     />
   );
 }
