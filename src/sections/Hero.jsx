@@ -6,18 +6,6 @@ import { useRef } from "react";
 const Hero = () => {
   const heroRef = useRef(null);
 
-  useGSAP(
-    () => {
-      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-
-      tl.from(".hero-line-1", { opacity: 0, y: 80, duration: 1.4 })
-        .from(".hero-line-2", { opacity: 0, y: 80, duration: 1.4 }, "-=1")
-        .from(".hero-line-3", { opacity: 0, y: 80, duration: 1.4 }, "-=1")
-        .from(".video-pill", { scale: 0.85, opacity: 0, duration: 1 }, "-=1");
-    },
-    { scope: heroRef }
-  );
-
   return (
     <section
       ref={heroRef}

@@ -1,64 +1,76 @@
-import Testimonials from "./sections/Testimonials";
-import Footer from "./sections/Footer";
-import Contact from "./sections/Contact";
-import TechStack from "./sections/TechStack";
-import Experience from "./sections/Experience";
+import { useRef, useState } from "react";
+import Navbar from "./components/NavBar";
+import Stairs from "./components/Stairs";
 import Hero from "./sections/Hero";
+import ExploreCTA from "./components/ExploreCTA";
 import ShowcaseSection from "./sections/ShowcaseSection";
 import LogoShowcase from "./sections/LogoShowcase";
 import FeatureCards from "./sections/FeatureCards";
-import Navbar from "./components/NavBar";
-import ExploreCTA from "./components/ExploreCTA";
-import { useEffect, useState } from "react";
-import { initSmoothScrolling } from "./utils/smoothScroll";
+import Experience from "./sections/Experience";
+import TechStack from "./sections/TechStack";
+import Testimonials from "./sections/Testimonials";
+import Contact from "./sections/Contact";
+import Footer from "./sections/Footer";
 import Loader from "./components/Loader";
-import Stairs from "./components/Stairs";
 
 const App = () => {
-  const [showLoader, setShowLoader] = useState(true);
-  const [slideUp, setSlideUp] = useState(false);
-  const [hasExplored, setHasExplored] = useState(false);
+  const stairsRef = useRef(null)
+  const [showLoader, setShowLoader] = useState(true)
+  const [slideUp, setSlideUp] = useState(false)
+  const [view, setView] = useState('hero')
 
-  useEffect(() => {
-    const cleanup = initSmoothScrolling();
-    return cleanup;
-  }, []);
+  const handleExplore = () => {
+    stairsRef.current.play()
+
+    // Switch content DURING black screen
+    setTimeout(() => {
+      setView('content')
+      window.scrollTo(0, 0)
+    }, 700)
+  }
 
   return (
     <>
+      {/* LOADER */}
       {showLoader && (
         <Loader
-          onFinish={() => {
-            setSlideUp(true);
-            setTimeout(() => setShowLoader(false), 800);
-          }}
           slideUp={slideUp}
+          onFinish={() => {
+            setSlideUp(true)
+            setTimeout(() => setShowLoader(false), 800)
+          }}
         />
       )}
 
-      <Navbar />
+      {!showLoader && (
+        <>
+          <Navbar />
 
-      {/* HERO ALWAYS VISIBLE */}
-      <Hero />
+          <Stairs ref={stairsRef}>
+            {view === 'hero' && (
+              <>
+                <Hero />
+                <ExploreCTA onExplore={handleExplore} />
+              </>
+            )}
 
-      {/* EXPLORE CTA BUTTON */}
-      <ExploreCTA onExplore={() => setHasExplored(true)} />
-
-      {/* REST OF PAGE — REVEALED VIA STAIRS */}
-      {hasExplored && (
-        <Stairs>
-          <ShowcaseSection />
-          <LogoShowcase />
-          <FeatureCards />
-          <Experience />
-          <TechStack />
-          <Testimonials />
-          <Contact />
-          <Footer />
-        </Stairs>
+            {view === 'content' && (
+              <>
+                <ShowcaseSection />
+                <LogoShowcase />
+                <FeatureCards />
+                <Experience />
+                <TechStack />
+                <Testimonials />
+                <Contact />
+                <Footer />
+              </>
+            )}
+          </Stairs>
+        </>
       )}
     </>
-  );
-};
+  )
+}
 
 export default App;

@@ -6,11 +6,14 @@ const ExploreCTA = ({ onExplore }) => {
   const ref = useRef(null);
 
   useGSAP(() => {
-    gsap.fromTo(
-      ref.current,
-      { opacity: 0, y: 40 },
-      { opacity: 1, y: 0, duration: 1, ease: "power3.out", delay: 1.8 }
-    );
+    // Fade in once
+    gsap.to(ref.current, { 
+      opacity: 1, 
+      y: 0, 
+      duration: 1, 
+      ease: "power3.out", 
+      delay: 0.5 
+    });
   });
 
   return (
@@ -18,6 +21,7 @@ const ExploreCTA = ({ onExplore }) => {
       <button
         ref={ref}
         onClick={onExplore}
+        style={{ opacity: 0, transform: 'translateY(40px)' }}
         className="
           cursor-pointer
           pointer-events-auto
