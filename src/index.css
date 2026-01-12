@@ -61,6 +61,16 @@ section {
     @apply xl:mt-20 md:mt-0 mt-40;
   }
 
+  /* Scroll Stack Cards - Performance Optimization */
+  .scroll-stack-card {
+    position: relative;
+    width: 100%;
+    border-radius: 24px;
+    will-change: transform;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+  }
+
   /* General Grids */
   .grid-base {
     @apply grid grid-cols-1;

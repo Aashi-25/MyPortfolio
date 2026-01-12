@@ -44,7 +44,7 @@ const Stairs = forwardRef(({ children }, ref) => {
     tlRef.current = tl
   })
 
-  // ✅ IMPERATIVE HANDLE - ONLY WAY TO CONTROL ANIMATION
+  // IMPERATIVE HANDLE - ONLY WAY TO CONTROL ANIMATION
   useImperativeHandle(ref, () => ({
     play: () => {
       tlRef.current?.restart()

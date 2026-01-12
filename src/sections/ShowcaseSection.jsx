@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { motion } from "framer-motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -46,6 +47,20 @@ const AppShowcase = () => {
   return (
     <div id="work" ref={sectionRef} className="app-showcase">
       <div className="w-full">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-12 -mt-8"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold mb-5">
+            My Projects
+          </h2>
+          <p className="text-white-50 text-lg md:text-xl max-w-2xl mx-auto">
+            Explore some of my featured work showcasing innovative solutions and cutting-edge technologies.
+          </p>
+        </motion.div>
+
         <div className="showcaselayout">
           <div ref={rydeRef} className="first-project-wrapper">
             <div className="image-wrapper">
