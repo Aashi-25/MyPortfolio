@@ -1,6 +1,7 @@
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { useRef, forwardRef, useImperativeHandle } from 'react'
+import { setTransitioning } from '../stores/transitionStore'
 
 const Stairs = forwardRef(({ children }, ref) => {
   const stairParentRef = useRef(null)
@@ -62,7 +63,13 @@ const Stairs = forwardRef(({ children }, ref) => {
   // IMPERATIVE HANDLE - ONLY WAY TO CONTROL ANIMATION
   useImperativeHandle(ref, () => ({
     play: () => {
+      setTransitioning(true)
+
       tlRef.current?.restart()
+
+      tlRef.current?.eventCallback('onComplete', () => {
+        setTransitioning(false)
+      })
     }
   }))
 

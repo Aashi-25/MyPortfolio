@@ -58,10 +58,6 @@ const Loader = ({ onFinish, slideUp }) => {
       <div
         style={{
           ...styles.greeting,
-          color: '#fff',
-          background: 'none',
-          WebkitBackgroundClip: 'initial',
-          WebkitTextFillColor: '#fff',
           transform: flash ? 'scale(1.05)' : 'scale(1)',
           transition: 'transform 0.15s',
         }}
@@ -78,7 +74,7 @@ const styles = {
   container: {
     height: '100vh',
     width: '100vw',
-    background: '#ff9800', // TEMP: orange for testing
+    background: '#ffffff',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -94,15 +90,14 @@ const styles = {
     minHeight: '80px',
     letterSpacing: '2px',
     userSelect: 'none',
+    color: '#000',
   },
   language: {
     fontSize: '1.1rem',
-    color: '#ffffff',
+    color: '#000',
     marginTop: '10px',
     fontWeight: 200,
     letterSpacing: '1px',
-    WebkitTextFillColor: '#ffffff',
-    WebkitBackgroundClip: 'initial',
   },
 };
 

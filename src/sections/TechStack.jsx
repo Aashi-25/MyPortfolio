@@ -5,17 +5,17 @@ import TechIconCardExperience from "../components/models/tech_logos/TechIconCard
 const TechStack = () => {
   return (
     <section className="relative overflow-hidden">
-      <div className="padding-x-lg xl:mt-32 mt-48">
+      <div className="padding-x-lg xl:mt-20 md:mt-32 mt-20">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-center"
+          className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-5">
             My Tech Stack
           </h2>
-          <p className="text-white-50 text-lg md:text-xl max-w-2xl mx-auto">
+          <p className="text-white/60 text-lg md:text-xl max-w-3xl mx-auto">
             I work with a variety of technologies to create amazing digital
             experiences. Here are some of the tools I use daily.
           </p>

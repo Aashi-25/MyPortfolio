@@ -40,13 +40,13 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="flex-center section-padding">
+    <section id="contact" className="flex-center section-padding py-20">
       <div className="w-full h-full md:px-10 px-5">
         <TitleHeader
-          title="Get in Touch – Let’s Connect"
-          sub="💬 Have questions or ideas? Let’s talk! 🚀"
+          title="Get in Touch – Let's Connect"
+          sub="💬 Have questions or ideas? Let's talk! 🚀"
         />
-        <div className="grid-12-cols mt-16">
+        <div className="grid-12-cols mt-14">
           <div className="xl:col-span-5">
             <div className="flex-center card-border rounded-xl p-10">
               <form
@@ -108,10 +108,10 @@ const Contact = () => {
             </div>
           </div>
           <div className="xl:col-span-7 min-h-96">
-            <div className="bg-[#cd7c2e] w-full h-full hover:cursor-grab rounded-3xl overflow-hidden">
+            <div className="bg-gradient-to-br from-blue-500/20 to-purple-500/20 w-full h-full hover:cursor-grab rounded-3xl overflow-hidden border border-white/10">
               {/* Temporarily disabled 3D element for smooth scrolling test */}
               {/* <ContactExperience /> */}
-              <div className="w-full h-full bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-lg flex items-center justify-center">
+              <div className="w-full h-full flex items-center justify-center">
                 <div className="text-center">
                   <h2 className="text-2xl font-bold mb-2">3D Element Disabled</h2>
                   <p className="text-sm opacity-70">Testing smooth scrolling</p>

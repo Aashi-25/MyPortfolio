@@ -1,5 +1,6 @@
 import { useLayoutEffect, useRef, useCallback } from "react";
 import Lenis from "lenis";
+import { isTransitioning } from "../stores/transitionStore";
 
 export const ScrollStackItem = ({ children, itemClassName = "" }) => (
   <div
@@ -34,6 +35,11 @@ const ScrollStack = ({
     typeof v === "string" ? (parseFloat(v) / 100) * h : v;
 
   const update = useCallback(() => {
+    if (isTransitioning) {
+      rafRef.current = requestAnimationFrame(update);
+      return;
+    }
+
     const scrollY = scrollYRef.current;
     const vh = window.innerHeight;
 
@@ -98,7 +104,9 @@ const ScrollStack = ({
     });
 
     lenis.on("scroll", e => {
-      scrollYRef.current = e.scroll;
+      if (!isTransitioning) {
+        scrollYRef.current = e.scroll;
+      }
     });
 
     const raf = time => {
