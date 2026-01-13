@@ -9,14 +9,25 @@ const Stairs = forwardRef(({ children }, ref) => {
   useGSAP(() => {
     const tl = gsap.timeline({ paused: true })
 
+    // 🔒 HARD RESET (prevents first-frame bleed)
+    gsap.set(stairParentRef.current, {
+      autoAlpha: 0,
+      pointerEvents: 'none'
+    })
+
+    gsap.set('.stair', {
+      height: 0,
+      y: '0%'
+    })
+
     tl.set(stairParentRef.current, {
-      display: 'block',
+      autoAlpha: 1,
       pointerEvents: 'auto'
     })
 
-    tl.from('.stair', {
-      height: 0,
-      duration: 0.4,
+    tl.to('.stair', {
+      height: '100%',
+      duration: 0.45,
       ease: 'power4.out',
       stagger: {
         amount: 0.25,
@@ -35,11 +46,15 @@ const Stairs = forwardRef(({ children }, ref) => {
     })
 
     tl.set(stairParentRef.current, {
-      display: 'none',
+      autoAlpha: 0,
       pointerEvents: 'none'
     })
 
-    tl.set('.stair', { y: '0%' })
+    // 🔁 FULL RESET FOR NEXT PLAY
+    tl.set('.stair', {
+      height: 0,
+      y: '0%'
+    })
 
     tlRef.current = tl
   })
@@ -55,7 +70,7 @@ const Stairs = forwardRef(({ children }, ref) => {
     <>
       <div
         ref={stairParentRef}
-        className="fixed inset-0 z-50 pointer-events-none hidden"
+        className="fixed inset-0 z-50 pointer-events-none"
       >
         <div className="flex h-full w-full">
           {[...Array(5)].map((_, i) => (
