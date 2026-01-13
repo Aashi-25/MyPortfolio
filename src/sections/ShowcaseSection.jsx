@@ -1,104 +1,91 @@
 import { useRef } from "react";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { motion } from "framer-motion";
+import ScrollStack, { ScrollStackItem } from "../components/ScrollStack";
 
-gsap.registerPlugin(ScrollTrigger);
+const projects = [
+  {
+    title: 'Project One',
+    desc: 'Advanced animations and interactive UI.',
+    tech: ['React', 'GSAP', 'Three.js']
+  },
+  {
+    title: 'Project Two',
+    desc: 'Real-time full-stack application.',
+    tech: ['Next.js', 'TypeScript', 'Tailwind']
+  },
+  {
+    title: 'Project Three',
+    desc: 'Micro-interactions and UX polish.',
+    tech: ['Vue', 'WebGL', 'Performance']
+  },
+  {
+    title: 'Project Four',
+    desc: 'AI-powered automation platform.',
+    tech: ['Python', 'LLMs', 'LangChain']
+  },
+  {
+    title: 'Project Five',
+    desc: 'Scalable SaaS dashboard.',
+    tech: ['React', 'Charts', 'API']
+  }
+];
 
-const AppShowcase = () => {
+const ProjectCard = ({ title, desc, tech }) => (
+  <div className="space-y-4">
+    <h3 className="text-4xl font-semibold tracking-tight">{title}</h3>
+    <p className="text-white/65 text-lg leading-relaxed max-w-3xl">{desc}</p>
+
+    <div className="flex gap-3 flex-wrap">
+      {tech.map(t => (
+        <span
+          key={t}
+          className="px-4 py-1.5 bg-blue-900/40 rounded-full text-[13px] tracking-wide uppercase"
+        >
+          {t}
+        </span>
+      ))}
+    </div>
+  </div>
+);
+
+const AppShowcase = ({ onViewAll }) => {
   const sectionRef = useRef(null);
-  const rydeRef = useRef(null);
-  const libraryRef = useRef(null);
-  const ycDirectoryRef = useRef(null);
 
   useGSAP(() => {
-    // Animation for the main section
     gsap.fromTo(
       sectionRef.current,
       { opacity: 0 },
-      { opacity: 1, duration: 1.5 }
+      { opacity: 1, duration: 1.2 }
     );
-
-    // Animations for each app showcase
-    const cards = [rydeRef.current, libraryRef.current, ycDirectoryRef.current];
-
-    cards.forEach((card, index) => {
-      gsap.fromTo(
-        card,
-        {
-          y: 50,
-          opacity: 0,
-        },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 1,
-          delay: 0.3 * (index + 1),
-          scrollTrigger: {
-            trigger: card,
-            start: "top bottom-=100",
-          },
-        }
-      );
-    });
   }, []);
 
   return (
-    <div id="work" ref={sectionRef} className="app-showcase">
-      <div className="w-full">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-12 -mt-8"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold mb-5">
-            My Projects
-          </h2>
-          <p className="text-white-50 text-lg md:text-xl max-w-2xl mx-auto">
-            Explore some of my featured work showcasing innovative solutions and cutting-edge technologies.
-          </p>
-        </motion.div>
-
-        <div className="showcaselayout">
-          <div ref={rydeRef} className="first-project-wrapper">
-            <div className="image-wrapper">
-              <img src="/images/project1.png" alt="Ryde App Interface" />
-            </div>
-            <div className="text-content">
-              <h2>
-                On-Demand Rides Made Simple with a Powerful, User-Friendly App
-                called Ryde
-              </h2>
-              <p className="text-white-50 md:text-xl">
-                An app built with React Native, Expo, & TailwindCSS for a fast,
-                user-friendly experience.
-              </p>
-            </div>
-          </div>
-
-          <div className="project-list-wrapper overflow-hidden">
-            <div className="project" ref={libraryRef}>
-              <div className="image-wrapper bg-[#FFEFDB]">
-                <img
-                  src="/images/project2.png"
-                  alt="Library Management Platform"
-                />
-              </div>
-              <h2>The Library Management Platform</h2>
-            </div>
-
-            <div className="project" ref={ycDirectoryRef}>
-              <div className="image-wrapper bg-[#FFE7EB]">
-                <img src="/images/project3.png" alt="YC Directory App" />
-              </div>
-              <h2>YC Directory - A Startup Showcase App</h2>
-            </div>
-          </div>
-        </div>
+    <section
+      id="work"
+      ref={sectionRef}
+      className="relative w-full bg-black text-white"
+    >
+      {/* HEADING (normal scroll) */}
+      <div className="max-w-6xl mx-auto pt-24 pb-4 text-center">
+        <h2 className="text-5xl font-bold mb-6">My Projects</h2>
+        <p className="text-white/60 max-w-2xl mx-auto">
+          Explore some of my featured work showcasing innovative solutions and
+          cutting-edge technologies.
+        </p>
       </div>
-    </div>
+
+      {/* STACK ZONE */}
+      <div className="relative flex justify-center">
+        <ScrollStack>
+          {projects.map((project, i) => (
+            <ScrollStackItem key={i}>
+              <ProjectCard {...project} />
+            </ScrollStackItem>
+          ))}
+        </ScrollStack>
+      </div>
+    </section>
   );
 };
 
