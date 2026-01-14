@@ -4,6 +4,7 @@ import Stairs from "./components/Stairs";
 import Hero from "./sections/Hero";
 import ExploreCTA from "./components/ExploreCTA";
 import ShowcaseSection from "./sections/ShowcaseSection";
+import ProblemStatementBand from "./sections/ProblemStatementBand";
 import LogoShowcase from "./sections/LogoShowcase";
 import FeatureCards from "./sections/FeatureCards";
 import Experience from "./sections/Experience";
@@ -73,6 +74,7 @@ const App = () => {
             {view === 'content' && (
               <>
                 <ShowcaseSection />
+                <ProblemStatementBand />
                 <LogoShowcase />
                 <FeatureCards />
                 <Experience />

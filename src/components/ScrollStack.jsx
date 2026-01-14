@@ -125,7 +125,7 @@ const ScrollStack = ({
 
   return (
     <div className="relative w-full">
-      <div className="pt-[8vh] pb-[150vh]">
+      <div className="pt-[8vh] pb-[57vh]">
         {children}
         <div className="scroll-stack-end h-px w-full" />
       </div>
