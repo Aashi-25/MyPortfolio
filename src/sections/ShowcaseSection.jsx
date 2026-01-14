@@ -2,6 +2,8 @@ import { useRef } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import ScrollStack, { ScrollStackItem } from "../components/ScrollStack";
+import AnimatedHeading from "../components/AnimatedHeading";
+import DecryptedText from "../components/DecryptedText";
 
 const projects = [
   {
@@ -67,12 +69,25 @@ const AppShowcase = ({ onViewAll }) => {
       className="relative w-full bg-black text-white"
     >
       {/* HEADING (normal scroll) */}
-      <div className="max-w-6xl mx-auto pt-24 pb-4 text-center">
-        <h2 className="text-5xl font-bold mb-6">My Projects</h2>
-        <p className="text-white/60 max-w-2xl mx-auto">
-          Explore some of my featured work showcasing innovative solutions and
-          cutting-edge technologies.
-        </p>
+      <div className="max-w-6xl mx-auto pt-17 pb-4 text-center space-y-6">
+        {/* Decrypted Heading */}
+        <AnimatedHeading
+          text="My Projects"
+          as="h2"
+          size="text-7xl"
+        />
+
+        {/* Decrypted Subheading */}
+        <DecryptedText
+          text="Explore some of my featured work showcasing innovative solutions and cutting-edge technologies."
+          animateOn="view"
+          sequential
+          speed={35}
+          revealDirection="start"
+          className="text-white/60 text-lg leading-relaxed"
+          encryptedClassName="text-white/20 text-lg leading-relaxed"
+          parentClassName="block max-w-2xl mx-auto"
+        />
       </div>
 
       {/* STACK ZONE */}
