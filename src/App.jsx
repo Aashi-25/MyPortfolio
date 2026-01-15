@@ -75,8 +75,8 @@ const App = () => {
               <>
                 <ShowcaseSection />
                 <ProblemStatementBand />
-                <LogoShowcase />
-                <FeatureCards />
+                {/* <LogoShowcase />
+                <FeatureCards /> */}
                 <Experience />
                 <TechStack />
                 <Testimonials />

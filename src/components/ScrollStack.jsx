@@ -4,9 +4,9 @@ import { isTransitioning } from "../stores/transitionStore";
 
 export const ScrollStackItem = ({ children, itemClassName = "" }) => (
   <div
-    className={`scroll-stack-card relative w-full my-16 p-16 rounded-[32px] bg-[#0b0b0b] shadow-xl ${itemClassName}`}
+    className={`scroll-stack-card relative w-full my-16 p-24 rounded-[32px] bg-[#0b0b0b] shadow-xl ${itemClassName}`}
     style={{
-      maxWidth: '1100px',
+      maxWidth: '1400px',
       marginInline: 'auto',
       backfaceVisibility: "hidden",
       transformStyle: "preserve-3d",
