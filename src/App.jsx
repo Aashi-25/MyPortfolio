@@ -13,6 +13,7 @@ import Testimonials from "./sections/Testimonials";
 import Contact from "./sections/Contact";
 import Footer from "./sections/Footer";
 import Loader from "./components/Loader";
+import SectionBackground from "./components/ui/SectionBackground";
 
 const App = () => {
   const stairsRef = useRef(null)
@@ -77,11 +78,14 @@ const App = () => {
                 <ProblemStatementBand />
                 {/* <LogoShowcase />
                 <FeatureCards /> */}
-                <Experience />
-                <TechStack />
-                <Testimonials />
-                <Contact />
-                <Footer />
+                <SectionBackground>
+                  <Experience />
+                  <TechStack />
+                  <Testimonials />
+                  </SectionBackground>
+                  <Contact />
+                  <Footer />
+                
               </>
             )}
           </Stairs>
