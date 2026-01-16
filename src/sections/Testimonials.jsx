@@ -1,11 +1,19 @@
 import { testimonials } from "../constants";
 import TitleHeader from "../components/TitleHeader";
 import GlowCard from "../components/GlowCard";
+import { DottedGlowBackground } from "../components/ui/dotted-glow-background";
 
 const Testimonials = () => {
   return (
-    <section id="testimonials" className="flex-center section-padding">
-      <div className="w-full h-full md:px-10 px-5">
+    <section
+      id="testimonials"
+      className="relative flex-center section-padding py-20 min-h-[120vh]"
+    >
+      {/* DOTTED BACKGROUND */}
+      <DottedGlowBackground className="z-0" />
+
+      {/* CONTENT */}
+      <div className="relative z-10 w-full h-full md:px-10 px-5">
         <TitleHeader
           title="What People Say About Me?"
           sub="⭐️ Customer feedback highlights"
@@ -15,9 +23,7 @@ const Testimonials = () => {
           {testimonials.map((testimonial, index) => (
             <GlowCard card={testimonial} key={index} index={index}>
               <div className="flex items-center gap-3">
-                <div>
-                  <img src={testimonial.imgPath} alt="" />
-                </div>
+                <img src={testimonial.imgPath} alt="" />
                 <div>
                   <p className="font-bold">{testimonial.name}</p>
                   <p className="text-white-50">{testimonial.mentions}</p>

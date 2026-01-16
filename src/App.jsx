@@ -80,9 +80,10 @@ const App = () => {
                 <FeatureCards /> */}
                 <SectionBackground>
                   <Experience />
-                  <TechStack />
                   <Testimonials />
-                  </SectionBackground>
+                </SectionBackground>
+                
+                  <TechStack />
                   <Contact />
                   <Footer />
                 

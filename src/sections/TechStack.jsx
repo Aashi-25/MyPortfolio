@@ -4,7 +4,7 @@ import TechIconCardExperience from "../components/models/tech_logos/TechIconCard
 
 const TechStack = () => {
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative overflow-hidden mt-20 mb-40">
       <div className="padding-x-lg xl:mt-20 md:mt-32 mt-20">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
